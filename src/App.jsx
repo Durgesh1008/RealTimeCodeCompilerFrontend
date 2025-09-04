@@ -3,7 +3,8 @@ import io from "socket.io-client";
 import Editor from "@monaco-editor/react";
 import "./App.css";
 
-const socket = io("https://realtimecodeeditor-production-c891.up.railway.app");
+const socket = io("https://realtimecodecompilerbackend-2.onrender.com");
+
 
 const App = () => {
   const [joined, setJoined] = useState(false);
