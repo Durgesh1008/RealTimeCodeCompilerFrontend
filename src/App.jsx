@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import io from "socket.io-client";
 import Editor from "@monaco-editor/react";
 import ChatBot from "./components/ChatBox.jsx";
+import { v4 as uuidv4 } from "uuid";
 import "./App.css";
 
 const socket = io("https://realtimecodecompilerbackend-2.onrender.com");
@@ -358,6 +359,42 @@ int main() {
       setAiLoading(false);
     }
   };
+  const generateId = () => {
+    const newId = uuidv4();
+    setRoomId(newId);
+  };
+
+  // if (!joined) {
+  //   return (
+  //     <>
+  //       <div className="project-info">
+  //         <h1>RealTimeCodeEditor</h1>
+  //       </div>
+  //       <div className="join-container">
+  //         <div className="join-form">
+  //           <h1>Join Code Room</h1>
+  //           <input
+  //             type="text"
+  //             placeholder="Room Id"
+  //             value={roomId}
+  //             onChange={(e) => setRoomId(e.target.value)}
+  //             onKeyPress={handleKeyPress}
+  //           />
+  //           <input
+  //             type="text"
+  //             placeholder="Your Name"
+  //             value={userName}
+  //             onChange={(e) => setUserName(e.target.value)}
+  //             onKeyPress={handleKeyPress}
+  //           />
+  //           <button onClick={joinRoom} disabled={!roomId || !userName}>
+  //             Join Room
+  //           </button>
+  //         </div>
+  //       </div>
+  //     </>
+  //   );
+  // }
 
   if (!joined) {
     return (
@@ -368,13 +405,24 @@ int main() {
         <div className="join-container">
           <div className="join-form">
             <h1>Join Code Room</h1>
-            <input
-              type="text"
-              placeholder="Room Id"
-              value={roomId}
-              onChange={(e) => setRoomId(e.target.value)}
-              onKeyPress={handleKeyPress}
-            />
+            <div className="room-id-input-container" style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
+              <input
+                type="text"
+                placeholder="Room Id"
+                value={roomId}
+                onChange={(e) => setRoomId(e.target.value)}
+                onKeyPress={handleKeyPress}
+                style={{ flex: 1, marginBottom: 0 }}
+              />
+              <button
+                type="button"
+                onClick={generateId}
+                className="generate-button"
+                style={{ width: 'auto', padding: '0 15px', whiteSpace: 'nowrap' }}
+              >
+                Generate ID
+              </button>
+            </div>
             <input
               type="text"
               placeholder="Your Name"
